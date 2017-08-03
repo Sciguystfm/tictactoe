@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+const DIMENSION = [0,1,2];
 
 class Board extends React.Component{
     constructor(props){
@@ -10,27 +11,21 @@ class Board extends React.Component{
             squares: ["","","","","","","","",""] 
         }
     }
+
+    
     
     render(){
+        const generateRow = rowIndex => {
+            return <tr>{DIMENSION.map(colIndex=>generateCol(rowIndex,colIndex))}</tr>
+        }
+
+        const generateCol = (rowIndex, colIndex) => {
+            return <td>{this.state.squares[rowIndex*3+colIndex]}</td>
+        }
+
         return(
             <table>
-                <tbody>
-                    <tr>
-                        <td>{this.state.squares[0]}</td>
-                        <td>{this.state.squares[1]}</td>
-                        <td>{this.state.squares[2]}</td>
-                    </tr>
-                    <tr>
-                        <td>{this.state.squares[3]}</td>
-                        <td>{this.state.squares[4]}</td>
-                        <td>{this.state.squares[5]}</td>
-                    </tr>
-                    <tr>
-                        <td>{this.state.squares[6]}</td>
-                        <td>{this.state.squares[7]}</td>
-                        <td>{this.state.squares[8]}</td>
-                    </tr>
-                </tbody>
+                <tbody>{DIMENSION.map(generateRow)}</tbody>
             </table>
         );
     }
